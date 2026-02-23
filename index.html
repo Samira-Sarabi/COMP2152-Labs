@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Run Jupyter</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #282a36;
+            color: #f8f8f2;
+            font-family: Arial, sans-serif;
+            flex-direction: column;
+        }
+        #runButton {
+            padding: 10px 20px;
+            background-color: #6272a4;
+            border: none;
+            border-radius: 5px;
+            color: #f8f8f2;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        #runButton:hover {
+            background-color: #50fa7b;
+        }
+        #runButton:disabled {
+            background-color: #555;
+            cursor: not-allowed;
+        }
+        #response {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #44475a;
+            border: 1px solid #6272a4;
+            display: none;
+            width: 60%;
+            text-align: center;
+        }
+        a{
+            color:#bcbe33;
+        }
+    </style>
+</head>
+<body>
+
+<button id="runButton">Run Jupyter</button>
+<div id="response">Response will be shown here.</div>
+
+<script>
+    document.getElementById('runButton').addEventListener('click', function() {
+        const button = document.getElementById('runButton');
+        const responseDiv = document.getElementById('response');
+
+        // Disable the button
+        button.disabled = true;
+        responseDiv.style.display = 'block';
+        responseDiv.innerHTML = 'Running server, please wait...';
+
+        fetch('.run.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            // body: 'data=value' // If needed
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                const port = data.port;
+                const token = data.token;
+                const url = `${window.location.hostname}:${port}/?token=${token}`;
+                responseDiv.innerHTML = `Jupyter is running! <a href="http://${url}" target="_blank">Access Jupyter here</a>`;
+                // Hide or remove the button
+                button.style.display = 'none'; // This hides the button
+                // button.remove(); // This completely removes the button from the DOM
+            } else {
+                responseDiv.innerHTML = `Error: ${data.message}`;
+            }
+        })
+        .catch(error => {
+            responseDiv.innerHTML = `Error: ${error}`;
+        })
+        .finally(() => {
+            // Re-enable the button if you choose not to hide/remove it on success
+            // button.disabled = false;
+        });
+    });
+</script>
+
+</body>
+</html>
+
