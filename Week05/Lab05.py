@@ -177,8 +177,20 @@ def binary_search_recursive(nums, target, left, right):
     Returns:
         int: Index of target, or -1 if not found
     """
-    # TODO: Base case - If left > right, return -1 (target not found)
+    left = 0
+    right = len(num) - 1
+    while left <= right:
+        # Calculate mid = (left + right) // 2
+        mid = (left + right) // 2
+        if num(mid) == target:
+            return mid
+        elif target < nums(mid):
+            right = mid -1
+        else:
+            left = mid +1 
 
+    # Base case - If left > right, return -1 (target not found)
+    return -1
 
     # TODO: Calculate mid = (left + right) // 2
 
