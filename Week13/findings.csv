@@ -1,0 +1,6 @@
+subdomain,type,severity,date
+ssh.0x10.cloud,default_creds,HIGH,2026-04-01
+api.0x10.cloud,xss,MEDIUM,2026-04-01
+app.0x10.cloud,sqli,HIGH,2026-04-02
+ssh.0x10.cloud,headers,LOW,2026-04-02
+api.0x10.cloud,xss,HIGH,2026-04-03
