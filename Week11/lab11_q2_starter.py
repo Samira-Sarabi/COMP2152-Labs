@@ -35,7 +35,6 @@ class PasswordChecker:
         return result
 
 
-<<<<<<< HEAD
 if __name__ == "__main__":
     print("=" * 60)
     print("  Q2: PASSWORD STRENGTH CHECKER")
@@ -54,24 +53,3 @@ if __name__ == "__main__":
         print(f"  {pwd:<15} : {result}")
 
     print("=" * 60)
-=======
-# ===== TEST CODE =====
-print("=" * 60)
-print("  Q2: PASSWORD STRENGTH CHECKER")
-print("=" * 60)
-
-checker = PasswordChecker()
-
-passwords = ["admin", "hello", "hello123", "MyP@ss99", "p@ssw0rd!", "root"]
-
-print("\n--- Checking Passwords ---")
-for pw in passwords:
-    result = checker.evaluate(pw)
-    print(f"  {pw:<15} -> {result}")
-
-print("\n--- Check History ---")
-for pw, result in checker.history:
-    print(f"  {pw:<15} : {result}")
-
-print("\n" + "=" * 60)
->>>>>>> 0a710edfe1255d3be6d49fc2b9d7dd39b5d3a3c9
